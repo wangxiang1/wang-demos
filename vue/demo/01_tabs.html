@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tabs demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    button{
+      width: 150px;
+      height: 30px;
+      background-color: ghostwhite;
+    }
+
+    .selectBtn{
+      background-color: rgb(205, 166, 228);
+    }
+
+    .content div{
+      width: 450px;
+      height: 300px;
+      background-color: aquamarine;
+      display: none;
+    }
+
+    .content .selectContent{
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    {{message}}
+
+    <div>
+      <button 
+        v-for="item in tabsList" 
+        v-bind:id="item.id" 
+        v-bind:class="{selectBtn: selectTab === item.id}" 
+        v-on:click="handleChangeTab"
+      >
+      {{item.name}}
+    </button>
+    </div>
+    <div class="content">
+      <div 
+        v-for="item in tabsList" 
+        v-bind:class="{selectContent: selectTab === item.id}"
+      >
+        {{item.content}}
+      </div>
+    </div>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        message: 'wangxiang test',
+        selectTab: 'tab1',
+        tabsList: [
+          {id: 'tab1', name: '选项1', content: '这是内容1 部分内容'},
+          {id: 'tab2', name: '选项2', content: '这是内容2 部分内容'},
+          {id: 'tab3', name: '选项3', content: '这是内容3 部分内容'},
+        ]
+      },
+      methods: {
+        handleChangeTab(e){
+          this.selectTab = e.target.id;
+        },
+      }
+    });
+  </script>
+</body>
+</html>
